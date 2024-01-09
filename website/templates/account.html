@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-center w-100 p-3">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab" aria-controls="v-pills-password" aria-selected="true">Password</button>
+      <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-articles" type="button" role="tab" aria-controls="v-pills-articles" aria-selected="false">Articles</button>
+    </div>
+    <div class="tab-content overflow-y-scroll w-100 p-3" id="v-pills-tabContent" style="height: 35rem;">
+      <div class="tab-pane fade show active" id="v-pills-password" role="tabpanel" aria-labelledby="v-pills-password-tab" tabindex="0"> 
+
+        <h3>Change your password</h3>
+        <div class="row mb-3">
+          <form action="{{ url_for('auth.change_password') }}" method="post">
+            <div class="row mb-3">
+              <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Old Password</label>
+              <div class="col-sm-10">        
+              <input 
+              class="form-control form-control-lg"
+              type="password" 
+              name="old-password" 
+              placeholder="Your Old Password"/>
+      
+              </div>
+              <br>
+            </div>
+            <div class="row mb-3">
+              <label for="password" class="col-sm-2 col-form-label col-form-label-lg">New Password</label>
+              <div class="col-sm-10">        
+              <input 
+              class="form-control form-control-lg"
+              type="password" 
+              name="new-password" 
+              placeholder="Your New Password"/>
+      
+              </div>
+              <br>
+            </div>
+            <div class="row mb-3">
+              <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Confirm Password</label>
+              <div class="col-sm-10">        
+              <input 
+              class="form-control form-control-lg"
+              type="password" 
+              name="password-confirm" 
+              placeholder="Password Confirm"/>
+      
+              </div>
+              <br>
+            </div>
+            <button type="submit" class="btn btn-primary float-end">Change</button>
+          </form>
+        </div>
+      </div>
+      <div class="tab-pane fade h-100" id="v-pills-articles" role="tabpanel" aria-labelledby="v-pills-articles-tab" tabindex="0">
+        {% for article in articles %}
+        <div class="row">
+          <div class="col-10">
+            <p class="fs-3">{{ article.title }}</p>
+          </div>
+          <div class="col-1 justify-items-center">
+            <a href="{{ url_for('views.edit_article', id=article.id) }}" class="btn btn-primary">Edit</a>
+          </div>
+          <div class="col-1 justify-items-center justify-content-center">
+            <a href="{{ url_for('views.delete_article', id=article.id) }}" class="btn btn-danger">Delete</a>
+          </div>
+        </div>  
+        {% endfor %}
+      </div>
+    </div>
+</div>
+{% endblock %}

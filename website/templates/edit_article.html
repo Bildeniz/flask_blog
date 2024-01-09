@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Edit Article{% endblock %}
+{% block content %}
+{{ ckeditor.load() }}
+<form action="{{ url_for('views.edit_article', id=id) }}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Your Title" value="{{ title }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Article Content</label>
+        {{ ckeditor.create(value=content) }}
+    </div>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="image">Article Cover Photo</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg">
+    </div>
+    <button type="submit" value="upload" class="btn btn-primary float-end">Update</button>
+</form>
+
+<style>
+    #cke_ckeditor{
+        background-color: #212529 !important;
+        color: white !important;
+    }
+</style>
+
+{% endblock %}

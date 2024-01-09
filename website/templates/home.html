@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Home Page{% endblock title %}
+{% block content %}
+    <h1>Articles</h1>
+    <hr>
+    <br>
+    {% for article in articles %}
+        <div class="text-center">
+            {% if article.is_have_image %}
+                <img src="{{ url_for('images.user_images', user=article.user.id, article_id=article.id) }}" alt="{{ article.title }}" class="img-thumbnail" style="max-height:15rem;">
+            {% else %}
+                <img src="{{ url_for('images.default_image') }}" alt="default image" class="img-thumbnail" style="max-height:15rem;">
+            {% endif %}
+
+            <br><br>
+            <h2 class="h2">{{ article.title.capitalize() }}</h2>
+            
+        </div>
+        <p>{{ article.content }}</p>
+
+        <p class="text-start opacity-50">{{ article.pub_date.strftime('%Y-%m-%d %H:%M') }}</p>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <p class="float-end"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg> {{ article.user.username }}
+        </p>
+
+        <br>
+        
+        <a href="{{ url_for('views.article', id=article.id) }}"><button class="btn btn-primary">Read more</button></a>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock content %}

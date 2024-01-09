@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<script>
+    function validate_form(){
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const password_confirm = document.getElementById('password-confirm');
+
+        username.value = username.value.trim();
+        email.value = email.value.trim();
+
+        if(150 > username.value.length > 3){//Username validate
+            showAlerts('Please enter greater username', 'danger', 6000);
+            const username_color = username.style.borderBlockColor;
+            username.style.borderBlockColor = "red";
+
+            setTimeout(()=>{
+                username.style.borderBlockColor=username_color;
+            })
+            return false;
+        }else if(150 > email.value.length > 9){//Email validate
+            showAlerts('Email must be greater than 9 chracters', 'danger', 6000);
+            email.style.borderBlockColor = "red";
+            setTimeout(()=>{
+                email.style.borderBlockColor = "";
+            }, 6000)
+            return false;
+        }else if(password.value !== password_confirm.value){//Pasword confirm validate
+            showAlerts('Passwords not match', 'danger', 6000);
+            return false;
+        }else if(250 > password.value.length > 6){//Pasword validate
+            showAlerts('Password must be greater than 6 characters smaller', 'danger', 6000);
+            return false;
+        }else{
+            return true;
+        }
+
+
+    }    
+</script>
+
+<form method="post", onsubmit="return validate_form();">
+    <div class="row mb-3">
+        <h1>Sign Up</h1>
+
+        <label for="username" class="col-sm-2 col-form-label col-form-label-lg">Username</label>
+        
+        <div class="col-sm-10">
+        <input 
+        class="form-control form-control-lg"
+        type="text" 
+        name="username" 
+        id="username"
+        placeholder="Username" required />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="email" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+        
+        <div class="col-sm-10">
+        <input 
+        class="form-control form-control-lg"
+        type="email" 
+        name="email" 
+        id="email"
+        placeholder="Email" required />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
+    
+        <div class="col-sm-10">
+            <input 
+            class="form-control form-control-lg"
+            type="password" 
+            name="password" 
+            id="password"
+            placeholder="password" required />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="password-confirm" class="col-sm-2 col-form-label col-form-label-lg">Confirm Password</label>
+        
+        <div class="col-sm-10">
+        <input 
+        class="form-control form-control-lg"
+        type="password" 
+        name="password-confirm" 
+        id="password-confirm"
+        placeholder="Confirm Password" required />
+        </div>
+    
+    </div>
+    <br><br>
+    
+    <button type="submit" class="btn btn-primary float-end">Sign up</button>
+</form>
+
+
+{% endblock %}
