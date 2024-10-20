@@ -73,7 +73,7 @@ def signUp():
             flash('Password must be greater than 6 characters', 'danger')
             return render_template('signup.html')
         else:# Success
-            passwd_hash = generate_password_hash(password=password, method='sha256')
+            passwd_hash = generate_password_hash(password=password, method='pbkdf2:sha256')
 
             try:
                 new_user = User(
@@ -123,7 +123,7 @@ def change_password():
         user = User.select().where(User.id == session['id']).get()
 
         if check_password_hash(user.password, old_password):
-            hash_new_password = generate_password_hash(new_password, method='sha256')
+            hash_new_password = generate_password_hash(new_password, method='pbkdf2:sha256')
         
             user.password = hash_new_password
             user.save()

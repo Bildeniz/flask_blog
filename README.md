@@ -12,7 +12,7 @@ python main.py
 ```
 Example Users:
 - Bildeniz56@gmail.com
-- wikipedi@wikipedia.org
+- wikipedia@wikipedia.org
 
 All user passwords is: 123456
 
